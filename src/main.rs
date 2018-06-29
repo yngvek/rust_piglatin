@@ -4,39 +4,51 @@
 // Words that start with a vowel have “hay” added to the end instead (“apple” becomes “apple-hay”). 
 // Keep in mind the details about UTF-8 encoding!
 
-//lag en input for ord
-
 fn main() {
 
-let vowel = String::from("ello");
-let consonant = String::from("dude");
+//todo: lag input - readLine
+//todo: handle uppercase/lowercase
 
-let vowel_addon = "hay";
-let consonant_addon = "ay";
+let word = String::from("hello");
 
-//remove first character in dude to the back, so it becomes ude
-//upper/lower
-let a_letter = 'b';
-let vowels = ['a','e','i','o','u','y','æ','ø','å'];
+let a_letter = 'a';
 
-for v in vowels.iter() {
-    if v == &a_letter {
-       println!("{} is a vowel",a_letter);
-    }
-    else {
-        println!("{} is a consonant", a_letter );
-    }
-    
+println!("Letter is a vowel: {} ", is_vowel(a_letter));
 }
 
-println!("{}", vowels[2] );
+fn is_vowel(a_letter: char) -> bool
+{   
+    let l = a_letter;
+    //let a_letter_lowercase = a_letter.to_lowercase().to_string();
+   
+    let vowels = ['a','e','i','o','u','y','æ','ø','å'];
+    if vowels.iter().any(|&x| x == a_letter)
+        {true}
+    else 
+        {false}
+}
 
-let formatted_vowel = format!("{}-{}",vowel,vowel_addon);
-let formatted_consonant = format!("{}-{}",consonant,consonant_addon);
-println!("{}",formatted_vowel);
-println!("{}",formatted_consonant);
+fn pigify_vowel(string: &str) -> &str
+{
+    //add hay to the end (“apple” becomes “apple-hay”)
+    //let vowel_addon = "hay";
+    //let formatted_vowel = format!("{}-{}",vowel,vowel_addon);
+   "pigified" 
+}
+
+fn pigify_consonant(string: &str) -> &str
+{
+    //The first consonant of each word is moved to the end of the word and “ay” is added, 
+   // so “first” becomes “irst-fay.” 
+    // let consonant_addon = "ay";
+    // let formatted_consonant = format!("{}-{}",consonant,consonant_addon);
+    "pigified"
+}
 
 
+
+
+// fn main() {
 // let t = 't';  //char
 // let h = "hello world"; //string literal - &str
 // let e = String::new(); //empty string
@@ -106,4 +118,4 @@ println!("{}",formatted_consonant);
 //     println!("{}", b);
 // }
     
-}
+//}
