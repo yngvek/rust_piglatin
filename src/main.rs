@@ -3,6 +3,7 @@
 // so “first” becomes “irst-fay.”
 // Words that start with a vowel have “hay” added to the end instead (“apple” becomes “apple-hay”).
 // Keep in mind the details about UTF-8 encoding!
+//testing
 use std::io;
 fn main() {
     //todo: handle uppercase/lowercase
