@@ -1,58 +1,63 @@
-// Convert strings to pig latin. 
-// The first consonant of each word is moved to the end of the word and “ay” is added, 
-// so “first” becomes “irst-fay.” 
-// Words that start with a vowel have “hay” added to the end instead (“apple” becomes “apple-hay”). 
+// Convert strings to pig latin.
+// The first consonant of each word is moved to the end of the word and “ay” is added,
+// so “first” becomes “irst-fay.”
+// Words that start with a vowel have “hay” added to the end instead (“apple” becomes “apple-hay”).
 // Keep in mind the details about UTF-8 encoding!
-
+use std::io;
 fn main() {
+    //todo: handle uppercase/lowercase
+    //todo: handle string starting with a number
+    //todo: what about 1 letter only, how to behave
+    //todo handle unicode - more than one bytes per char
+    println!("This program piglatinifies a string. Please enter a string");
+    let mut input_string = String::new();
 
-//todo: lag input - readLine
-//todo: handle uppercase/lowercase
+    io::stdin()
+        .read_line(&mut input_string)
+        .expect("Failed to read line");
 
-let word = String::from("hello");
+    println!(".....piglatinifying in progress..");
+    let split_string: Vec<&str> = input_string.trim().split(' ').collect();
 
-let a_letter = 'a';
+    for a_string in split_string {
+        if is_vowel(&a_string[0..1]) {
+            print!("{} ", pigify_vowel(&a_string));
+        } else {
+            print!("{} ", pigify_consonant(&a_string));
+        }
+    }
 
-println!("Letter is a vowel: {} ", is_vowel(a_letter));
+    fn is_vowel(a_letter: &str) -> bool {
+        let vowels = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å"];
+        if vowels.iter().any(|&x| x == a_letter) {
+            true
+        } else {
+            false
+        }
+    }
 }
 
-fn is_vowel(a_letter: char) -> bool
-{   
-    let l = a_letter;
-    //let a_letter_lowercase = a_letter.to_lowercase().to_string();
-   
-    let vowels = ['a','e','i','o','u','y','æ','ø','å'];
-    if vowels.iter().any(|&x| x == a_letter)
-        {true}
-    else 
-        {false}
-}
-
-fn pigify_vowel(string: &str) -> &str
-{
+fn pigify_vowel(string: &str) -> String {
     //add hay to the end (“apple” becomes “apple-hay”)
-    //let vowel_addon = "hay";
-    //let formatted_vowel = format!("{}-{}",vowel,vowel_addon);
-   "pigified" 
+    let vowel_addon = "hay";
+    format!("{}-{}", &string, vowel_addon)
 }
 
-fn pigify_consonant(string: &str) -> &str
-{
-    //The first consonant of each word is moved to the end of the word and “ay” is added, 
-   // so “first” becomes “irst-fay.” 
-    // let consonant_addon = "ay";
-    // let formatted_consonant = format!("{}-{}",consonant,consonant_addon);
-    "pigified"
+fn pigify_consonant(string: &str) -> String {
+    //The first consonant of each word is moved to the end of the word and “ay” is added,
+    // so “first” becomes “irst-fay.”
+    let len = string.len();
+    let first_letter: &str = &string[0..1];
+    let rest_of_word: &str = &string[1..len];
+    let consonant_addon = "ay";
+    format!("{}-{}{}", rest_of_word, first_letter, consonant_addon)
 }
-
-
-
 
 // fn main() {
 // let t = 't';  //char
 // let h = "hello world"; //string literal - &str
 // let e = String::new(); //empty string
-  
+
 // let mut s = String::from("hello world");
 
 // let data = "initial content";
@@ -93,14 +98,12 @@ fn pigify_consonant(string: &str) -> &str
 // let s101112 = format!("{}-{}-{}", s10, s11, s12);
 // println!("{}", s101112);
 
-
 // //indexing
 // let len1 = String::from("Hola").len();
 // println!("{}", len1);
 
 // let len2 = String::from("Здравствуйте").len();
 // println!("{}", len2);
-
 
 // //slicing strings
 // let hello = "Здравствуйте";
@@ -117,5 +120,5 @@ fn pigify_consonant(string: &str) -> &str
 // for b in hello2.bytes()  {
 //     println!("{}", b);
 // }
-    
+
 //}
