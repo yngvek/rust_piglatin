@@ -6,10 +6,10 @@
 //testing
 use std::io;
 fn main() {
-    //todo: handle uppercase/lowercase
+    //todo handle unicode - more than one bytes per char
     //todo: handle string starting with a number
     //todo: what about 1 letter only, how to behave
-    //todo handle unicode - more than one bytes per char
+    //todo: handle  uppercase/lowercase, version 2. without explicit in array
     println!("This program piglatinifies a string. Please enter a string");
     let mut input_string = String::new();
 
@@ -20,23 +20,46 @@ fn main() {
     println!(".....piglatinifying in progress..");
     let split_string: Vec<&str> = input_string.trim().split(' ').collect();
 
-    for a_string in split_string {
-        if is_vowel(&a_string[0..1]) {
-            print!("{} ", pigify_vowel(&a_string));
+    for a_string in &split_string {
+        // println!("{:?}", a_string.chars().nth(0) )
+        if is_vowel2(a_string.chars().nth(0)){
+             print!("{} ", pigify_vowel(&a_string));
         } else {
             print!("{} ", pigify_consonant(&a_string));
         }
-    }
+        }
 
-    fn is_vowel(a_letter: &str) -> bool {
-        let vowels = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å"];
-        if vowels.iter().any(|&x| x == a_letter) {
+    
+    // for a_string in split_string {
+    //     if is_vowel(&a_string[0..1]) {
+    //         print!("{} ", pigify_vowel(&a_string));
+    //     } else {
+    //         print!("{} ", pigify_consonant(&a_string));
+    //     }
+    // }
+}
+
+    fn is_vowel2(a_letter: Option<char>) -> bool {
+         let vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'æ', 'ø', 'å', 
+                     'A', 'E', 'I', 'O', 'U', 'Y', 'Æ', 'Ø', 'Å'];
+        if vowels.iter().any(|&x| x == a_letter.expect("none")) {
             true
         } else {
             false
-        }
+        } 
     }
-}
+
+
+    // fn is_vowel(a_letter: &str) -> bool {
+    //     let vowels = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å", 
+    //                   "A", "E", "I", "O", "U", "Y", "Æ", "Ø", "Å"];
+    //     if vowels.iter().any(|&x| x == a_letter) {
+    //         true
+    //     } else {
+    //         false
+    //     }
+    // }
+
 
 fn pigify_vowel(string: &str) -> String {
     //add hay to the end (“apple” becomes “apple-hay”)
@@ -48,10 +71,12 @@ fn pigify_consonant(string: &str) -> String {
     //The first consonant of each word is moved to the end of the word and “ay” is added,
     // so “first” becomes “irst-fay.”
     let len = string.len();
-    let first_letter: &str = &string[0..1];
-    let rest_of_word: &str = &string[1..len];
+    //let first_letter: &str = &string[0..1];
+    let first_letter_uc = string.chars().nth(0).expect("");
+   //let rest_of_word: &str = &string[1..len];
+    let rest_of_word_uc = &string[2..]; //dette blir feil
     let consonant_addon = "ay";
-    format!("{}-{}{}", rest_of_word, first_letter, consonant_addon)
+    format!("{}-{}{}", rest_of_word_uc, first_letter_uc, consonant_addon)
 }
 
 // fn main() {
