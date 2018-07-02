@@ -26,7 +26,7 @@ fn main() {
             .to_lowercase()
             .to_string();
 
-        if is_vowel2(letter_lowercase) {
+        if is_vowel(letter_lowercase) {
             print!("{} ", pigify_vowel(&a_string));
         } else {
             print!("{} ", pigify_consonant(&a_string));
@@ -34,7 +34,7 @@ fn main() {
     }
 }
 
-fn is_vowel2(a_letter: String) -> bool {
+fn is_vowel(a_letter: String) -> bool {
     let vowels = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å"];
     if vowels.iter().any(|&x| x == a_letter) {
         true
