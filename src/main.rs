@@ -9,7 +9,6 @@ fn main() {
     //todo handle unicode - more than one bytes per char
     //todo: handle string starting with a number
     //todo: what about 1 letter only, how to behave
-    //todo: handle  uppercase/lowercase, version 2. without explicit in array
     println!("This program piglatinifies a string. Please enter a string");
     let mut input_string = String::new();
 
@@ -21,14 +20,15 @@ fn main() {
     let split_string: Vec<&str> = input_string.trim().split(' ').collect();
 
     for a_string in &split_string {
-        // println!("{:?}", a_string.chars().nth(0) )
-        if is_vowel2(a_string.chars().nth(0)){
+         let letter_lowercase = a_string.chars().nth(0).expect("").to_lowercase().to_string();
+         //println!("L_lowercase equals {}", letter_lowercase);
+
+        if is_vowel2(letter_lowercase){
              print!("{} ", pigify_vowel(&a_string));
         } else {
             print!("{} ", pigify_consonant(&a_string));
         }
         }
-
     
     // for a_string in split_string {
     //     if is_vowel(&a_string[0..1]) {
@@ -39,16 +39,16 @@ fn main() {
     // }
 }
 
-    fn is_vowel2(a_letter: Option<char>) -> bool {
-         let vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'æ', 'ø', 'å', 
-                     'A', 'E', 'I', 'O', 'U', 'Y', 'Æ', 'Ø', 'Å'];
-        if vowels.iter().any(|&x| x == a_letter.expect("none")) {
+    fn is_vowel2(a_letter: String) -> bool {
+         let vowels = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å"];//, 
+         //let vowels = ['a', 'e', 'i', 'o', 'u', 'y', 'æ', 'ø', 'å'];//, 
+                     //'A', 'E', 'I', 'O', 'U', 'Y', 'Æ', 'Ø', 'Å'];
+        if vowels.iter().any(|&x| x == a_letter) {
             true
         } else {
             false
         } 
     }
-
 
     // fn is_vowel(a_letter: &str) -> bool {
     //     let vowels = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å", 
@@ -70,13 +70,15 @@ fn pigify_vowel(string: &str) -> String {
 fn pigify_consonant(string: &str) -> String {
     //The first consonant of each word is moved to the end of the word and “ay” is added,
     // so “first” becomes “irst-fay.”
-    let len = string.len();
+    //let len = string.len();
     //let first_letter: &str = &string[0..1];
-    let first_letter_uc = string.chars().nth(0).expect("");
+    let first_letter_uc = &string.chars().nth(0).expect("");
    //let rest_of_word: &str = &string[1..len];
-    let rest_of_word_uc = &string[2..]; //dette blir feil
+    let rest_of_word_uc: Vec<_> = string.chars().skip(1).collect(); //dette blir feil
+    let rest_of_word_uc_unwrap = rest_of_word_uc.iter();
+    //println!("Slik: {:?}", rest_of_word_uc);
     let consonant_addon = "ay";
-    format!("{}-{}{}", rest_of_word_uc, first_letter_uc, consonant_addon)
+    format!("{:?}-{}{}", rest_of_word_uc, first_letter_uc, consonant_addon)
 }
 
 // fn main() {
