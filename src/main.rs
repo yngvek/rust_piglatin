@@ -16,17 +16,11 @@ fn main() {
         .expect("Failed to read line");
 
     println!(".....piglatinifying in progress..");
+
     let split_string: Vec<&str> = input_string.trim().split(' ').collect();
 
     for a_string in &split_string {
-        let letter_lowercase = a_string
-            .chars()
-            .nth(0)
-            .expect("")
-            .to_lowercase()
-            .to_string();
-
-        if is_vowel(letter_lowercase) {
+        if is_vowel(&a_string) {
             print!("{} ", pigify_vowel(&a_string));
         } else {
             print!("{} ", pigify_consonant(&a_string));
@@ -34,9 +28,17 @@ fn main() {
     }
 }
 
-fn is_vowel(a_letter: String) -> bool {
+fn is_vowel(string: &str) -> bool {
+
+        let letter_lowercase = string
+            .chars()
+            .nth(0)
+            .expect("")
+            .to_lowercase()
+            .to_string();
+
     let vowels = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å"];
-    if vowels.iter().any(|&x| x == a_letter) {
+    if vowels.iter().any(|&x| x == letter_lowercase) {
         true
     } else {
         false
