@@ -38,11 +38,7 @@ fn is_vowel(string: &str) -> bool {
             .to_string();
 
     let vowels = ["a", "e", "i", "o", "u", "y", "æ", "ø", "å"];
-    if vowels.iter().any(|&x| x == letter_lowercase) {
-        true
-    } else {
-        false
-    }
+    vowels.iter().any(|&x| x == letter_lowercase) 
 }
 
 fn pigify_vowel(string: &str) -> String {
